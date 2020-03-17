@@ -1,4 +1,4 @@
-# steemview
+# hiveview
 Django App for viewing/interacting with Steem Blockchain
 
 Used the simple blog app from [Django Girls](https://tutorial.djangogirls.org/)) as a base django template.
