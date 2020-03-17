@@ -12,6 +12,7 @@
 
 .content {
     margin-left: 40px;
+    border: 1px solid #000000;
 }
 
 h1, h2, h3, h4 {

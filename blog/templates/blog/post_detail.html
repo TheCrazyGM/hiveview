@@ -4,7 +4,7 @@
 <div class="post">
     {% if post.created %}
     <div class="date">
-        {{ post.created }}
+        {{ post.author }} {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
     </div>
     {% endif %}
     {% if user.is_authenticated %}
@@ -19,11 +19,11 @@
         <li>{{tags}}</li>
         {% endfor %}
     </div>
+    <hr/>
     {% for reply in replies %}
     <strong>{{reply.author}}</strong> - {{reply.created}}
     {{reply.body|safe}}
-    </br>
+    <hr/>
     {% endfor %}
-    <hr>
 </div>
 {% endblock %}
