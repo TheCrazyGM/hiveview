@@ -3,6 +3,8 @@ Django App for viewing/interacting with Steem Blockchain
 
 Used the simple blog app from [Django Girls](https://tutorial.djangogirls.org/)) as a base django template.
 
+Used an unholy mix of steempy and beem (as some stuff is just broken in beem at the moment)
+
 # Done
 @username routes including @username/post (but not replies, followers, followees)
 all /tag/@username/post
