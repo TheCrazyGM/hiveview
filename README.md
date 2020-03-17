@@ -11,8 +11,8 @@ all /tag/@username/post
 /trending, /hot, /created, 
 
 detailed view is mostly complete, including replies
-
+detailed view shows number of votes and current payout value
 posts are markdown rendered
 
-# Todo
-add rewards info on posts and comments
+# Screenshot
+![ss](https://spee.ch/@TheCrazyGM:2/Screenshot-20200317063011-1922x1034.png)
