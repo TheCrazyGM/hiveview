@@ -10,7 +10,7 @@
         {% endif %}
     </div>
     <h2><a href="{% url 'post_detail' pk=post.permlink author=post.author %}">{{ post.title }}</a></h2>
-    {{ post.body|truncatewords_html:20 |linebreaksbr }}
+    {{ post.body| safe|truncatewords_html:50 |linebreaksbr }}
 </div>
 {% endfor %}
 {% endblock %}
