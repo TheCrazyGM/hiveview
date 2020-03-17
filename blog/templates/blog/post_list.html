@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% for post in posts %}
+<div class="post">
+    <div class="date">
+        {{ post.author }}
+        {% if post.created %}
+        {{ post.created }}
+        {% endif %}
+    </div>
+    <h2><a href="{% url 'post_detail' pk=post.permlink author=post.author %}">{{ post.title }}</a></h2>
+    {{ post.body|truncatewords_html:20 |linebreaksbr }}
+</div>
+{% endfor %}
+{% endblock %}
