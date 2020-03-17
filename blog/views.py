@@ -60,7 +60,7 @@ def blog_posts(request, author):
     for x in posts:
         x['body'] = markdown.markdown(x['body'])
         x['body'] = sanitizer.sanitize(x['body'])
-        x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
+        #x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
         x['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
                            r'<img src=https://steemitimages.com/640x0/\1 >', x['body'])
 

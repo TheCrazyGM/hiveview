@@ -9,7 +9,7 @@
             {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
         {% endif %}
     </div>
-    <h2><a href="{% url 'post_detail' pk=post.permlink author=post.author %}">{{ post.title }}</a></h2>
+    <h1><a href="{% url 'post_detail' pk=post.permlink author=post.author %}">{{ post.title }}</a></h1>
     {{ post.body| safe|truncatewords_html:50 |linebreaksbr }}
 </div>
 {% endfor %}
