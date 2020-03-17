@@ -6,7 +6,7 @@
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
-    font-size: 36pt;
+    font-size: 42pt;
     text-decoration: none;
 }
 
@@ -18,6 +18,17 @@ h1, h2, h3, h4 {
     font-family: 'Rock Salt', cursive;
 }
 
+h2 {
+    font-size: 2em;
+}
+
+h3 { 
+    font-size: 1em;
+}
+
+hr {
+    border: 1px solid #000000;
+}
 .date {
     color: #828282;
 }

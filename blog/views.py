@@ -1,3 +1,5 @@
+import re
+
 import markdown
 import requests
 from beem import Steem
@@ -8,11 +10,28 @@ from beem.utils import construct_authorperm
 from beemapi.steemnoderpc import SteemNodeRPC
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from html_sanitizer import Sanitizer
 from steem import Steem as Steempy
 
+nodes = ["https://api.steemit.com", "https://anyx.io"]
 q = Query(limit=10)
-stm = Steempy()
-steem = Steem(node="https://api.steemit.com")
+stm = Steempy(nodes=nodes)
+steem = Steem(node=nodes)
+options = {
+    "tags": {
+        "a", "h1", "h2", "h3", "strong", "em", "p", "ul", "ol",
+        "li", "br", "sub", "sup", "hr", "img"
+    },
+    "attributes": {"a": ("href", "name", "target", "title", "id", "rel"), 'img': ('src', )},
+    "empty": {"hr", "a", "br", "img"},
+    "separate": {"a", "p", "li"},
+    "whitespace": {"br"},
+    "keep_typographic_whitespace": False,
+    "add_nofollow": False,
+    "autolink": True,
+    "is_mergeable": lambda e1, e2: True,
+}
+sanitizer = Sanitizer(settings=options)
 
 
 def trending(request):
@@ -37,7 +56,7 @@ def latest(request):
 
 def blog_posts(request, author):
     account = Account(author, steem_instance=steem)
-    posts = account.get_blog(start_entry_id=0, limit=10, short_entries=True)
+    posts = account.get_blog(start_entry_id=0, limit=10)
     for x in posts:
         x['body'] = markdown.markdown(x['body'])
     return render(request, 'blog/post_list.html', {'posts': posts})
@@ -48,8 +67,18 @@ def post_detail(request, author, pk,):
     post = Comment(author_perm, steem_instance=steem)
     replies = stm.get_content_replies(author, pk)
     post['body'] = markdown.markdown(post.body)
+    post['body'] = sanitizer.sanitize(post['body'])
+    post['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
+                          r'<img src=https://steemitimages.com/640x0/\1 >', post['body'])
+
     for x in replies:
         x['body'] = markdown.markdown(x['body'])
+        x['body'] = sanitizer.sanitize(x['body'])
+        x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
+        x['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
+                           r'<img src=https://steemitimages.com/640x0/\1 >', x['body'])
+
+
     #post = Comment(pk).permlink
     return render(request, 'blog/post_detail.html', {'post': post, 'replies': replies})
 

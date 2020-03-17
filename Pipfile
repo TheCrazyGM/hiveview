@@ -12,6 +12,7 @@ beem = "*"
 markdown = "*"
 requests = "*"
 steem = "*"
+html-sanitizer = "*"
 
 [requires]
 python_version = "3.7"

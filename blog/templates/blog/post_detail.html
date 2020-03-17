@@ -19,10 +19,11 @@
         <li>{{tags}}</li>
         {% endfor %}
     </div>
-        {% for reply in replies %}
-            <strong>{{reply.author}}</strong> - {{reply.created}}
-            {{reply.body|safe}}
-</br>
-        {% endfor %}
+    {% for reply in replies %}
+    <strong>{{reply.author}}</strong> - {{reply.created}}
+    {{reply.body|safe}}
+    </br>
+    {% endfor %}
+    <hr>
 </div>
 {% endblock %}
