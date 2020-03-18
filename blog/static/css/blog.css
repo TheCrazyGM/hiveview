@@ -39,7 +39,7 @@ hr {
     border: 1px solid #212529;
 }
 .date {
-    color: #e7e7f1;
+    color: #212529;
     font-family: monospace;
 }
 
@@ -69,7 +69,7 @@ hr {
 
 .tags li{
         background-color: #212529;
-        color: #f0f0f8;
+        color: #e7e7f1;
         display: inline;
         border-radius: 5px;
         padding: 5px;
