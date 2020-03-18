@@ -25,7 +25,7 @@ SECRET_KEY = 'fsb9(+znm!v92=j$earifbwgq5x7w$+&qf&qmw9k^yz58q_z6t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.2']
 
 
 # Application definition

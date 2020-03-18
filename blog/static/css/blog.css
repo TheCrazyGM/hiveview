@@ -68,5 +68,10 @@ hr {
 }
 
 .tags li{
-    display: inline;
-}
+        background-color: #000;
+        color: #fff;
+        display: inline;
+        border-radius: 5px;
+        padding: 5px;
+      }
+ 
