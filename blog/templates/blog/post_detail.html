@@ -7,7 +7,7 @@
     </div>
 
     {% if user.is_authenticated %}
-    <a class="btn btn-default" href="{% url 'post_edit' author=post.author pk=post.permlink %}"><span
+    <a class="btn btn-default" href="{% url 'post_edit' author=post.author permlink=post.permlink %}"><span
             class="glyphicon glyphicon-pencil"></span></a>
     {% endif %}
     <h1>{{ post.title }}</h1>

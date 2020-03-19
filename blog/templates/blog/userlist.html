@@ -5,7 +5,7 @@
 <div class="post">
     <ul>
     {% for follower in followers %}
-    <li>{{ follower }}</a></li>
+    <a href="/@{{ follower }}"> <li>{{ follower }}</a></li></a>
     {% endfor %}
     </ul>
 </div>

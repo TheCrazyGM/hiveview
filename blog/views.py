@@ -33,6 +33,13 @@ options = {
 }
 sanitizer = Sanitizer(settings=options)
 
+def strip(text):
+    text['body'] = markdown.markdown(text['body'])
+    text['body'] = sanitizer.sanitize(text['body'])
+    #x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
+    text['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
+                       r'<img src=https://steemitimages.com/640x0/\1 >', text['body'])
+    return text
 
 def trending(request):
     posts = stm.get_discussions_by_trending(q)
@@ -55,54 +62,34 @@ def latest(request):
 
 
 def blog_posts(request, author):
+    author = re.sub(r'\/', '', author)
     account = Account(author, steem_instance=steem)
     posts = account.get_blog(start_entry_id=0, limit=10)
-    for x in posts:
-        x['body'] = markdown.markdown(x['body'])
-        x['body'] = sanitizer.sanitize(x['body'])
-        #x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
-        x['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
-                           r'<img src=https://steemitimages.com/640x0/\1 >', x['body'])
-
+    for post in posts:
+        if post:
+            post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
-def post_detail(request, author, pk,):
-    author_perm = construct_authorperm(author, pk)
+def post_detail(request, author, permlink, **args):
+    author_perm = construct_authorperm(author, permlink)
     post = Comment(author_perm, steem_instance=steem)
-    replies = stm.get_content_replies(author, pk)
-    post['body'] = markdown.markdown(post.body)
-    post['body'] = sanitizer.sanitize(post['body'])
-    post['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
-                          r'<img src=https://steemitimages.com/640x0/\1 >', post['body'])
-
-    for x in replies:
-        x['body'] = markdown.markdown(x['body'])
-        x['body'] = sanitizer.sanitize(x['body'])
-        x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
-        x['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
-                           r'<img src=https://steemitimages.com/640x0/\1 >', x['body'])
-
-
-    #post = Comment(pk).permlink
+    if post:
+        replies = stm.get_content_replies(author, permlink)
+        post = strip(post)
+        for reply in replies:
+            reply = strip(reply)
     return render(request, 'blog/post_detail.html', {'post': post, 'replies': replies})
 
 
-def post_detail_url(request, tag, author, pk,):
-    tags = tag
-    author_perm = construct_authorperm(author, pk)
-    post = Comment(author_perm, steem_instance=steem)
-    post['body'] = markdown.markdown(post.body)
-    return render(request, 'blog/post_detail.html', {'post': post})
-
 def followers(request, author):
     account = Account(author, steem_instance=steem)
-    followers = account.get_followers()
+    followers = account.get_followers(raw_name_list=True, limit=100)
     return render(request, 'blog/userlist.html', {'followers': followers})
 
 def following(request, author):
     account = Account(author, steem_instance=steem)
-    followers = account.get_following()
+    followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/userlist.html', {'followers': followers})
 
 
@@ -114,15 +101,15 @@ def post_new(request):
                 post.author = request.user
                 post.published_date = timezone.now()
                 post.save()
-                return redirect('post_detail', pk=post.pk)
+                return redirect('post_detail', permlink=post.permlink)
         else:
             form = PostForm()"""
     return render(request, 'blog/post_edit.html', {'form': ""})
 
 
-def post_edit(request, author, pk):
+def post_edit(request, author, permlink):
     """
-        author_perm = construct_authorperm(author, pk)
+        author_perm = construct_authorperm(author, permlink)
         post = Comment(author_perm, steem_instance=steem)
         if request.method == "POST":
             form = PostForm(request.POST, instance=post)
@@ -131,7 +118,7 @@ def post_edit(request, author, pk):
                 post.author = request.user
                 post.published_date = timezone.now()
                 post.save()
-                return redirect('post_detail', pk=post.pk)
+                return redirect('post_detail', permlink=post.permlink)
         else:
             form = PostForm(instance=post)
     """
