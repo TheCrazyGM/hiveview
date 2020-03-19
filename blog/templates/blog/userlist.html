@@ -1,11 +1,13 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="date">
-    {{ followers|length }} users in list
-</div>
-<h1>Username List</h1>
+
+<h1>{{ request.path }}</h1>
 <div class="follow">
+    <div class="date">
+        {{ followers|length }} users in list
+    </div>
+    <hr />
     <ul>
         {% for follower in followers %}
             <li>

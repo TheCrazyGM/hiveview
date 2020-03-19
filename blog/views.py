@@ -6,8 +6,8 @@ from beem import Steem
 from beem.account import Account
 from beem.comment import Comment
 from beem.discussions import Query
+from beem.instance import set_shared_steem_instance
 from beem.utils import construct_authorperm
-from beemapi.steemnoderpc import SteemNodeRPC
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from html_sanitizer import Sanitizer
@@ -17,6 +17,7 @@ nodes = ["https://api.steemit.com", "https://anyx.io"]
 q = Query(limit=10)
 stm = Steempy(nodes=nodes)
 steem = Steem(node=nodes)
+set_shared_steem_instance(steem)
 options = {
     "tags": {
         "a", "h1", "h2", "h3", "strong", "em", "p", "ul", "ol",
@@ -84,7 +85,7 @@ def tag(request, tag):
     return render(request, 'blog/post_list.html', {"posts": posts})
 
 def blog_posts(request, author):
-    author = re.sub(r'\/', '', author)
+    author = re.sub(r'(\/)', '', author)
     account = Account(author, steem_instance=steem)
     posts = account.get_blog()
     for post in posts:

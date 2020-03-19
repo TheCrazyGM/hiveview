@@ -18,5 +18,5 @@ posts are markdown rendered
 
 # Screenshot
 
-![ss](https://spee.ch/@TheCrazyGM:2/Screenshot-20200317063011-1922x1034.png)
+![ss](https://spee.ch/@TheCrazyGM:2/day02.png)
 
