@@ -46,32 +46,47 @@ def strip(text):
 
 def trending(request):
     posts = stm.get_discussions_by_trending(q)
+    for post in posts:
+        if post:
+            post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
 def hot(request):
     posts = stm.get_discussions_by_hot(q)
+    for post in posts:
+        if post:
+            post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
 def promoted(request):
     posts = stm.get_discussions_by_promoted(q)
+    for post in posts:
+        if post:
+            post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
 def latest(request):
     posts = stm.get_discussions_by_created(q)
+    for post in posts:
+        if post:
+            post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 def tag(request, tag):
     tag_q = Query(limit=10, tag=tag)
     posts = stm.get_discussions_by_trending(tag_q)
+    for post in posts:
+        if post:
+            post = strip(post)
     return render(request, 'blog/post_list.html', {"posts": posts})
 
 def blog_posts(request, author):
     author = re.sub(r'\/', '', author)
     account = Account(author, steem_instance=steem)
-    posts = account.get_blog(start_entry_id=0, limit=10)
+    posts = account.get_blog()
     for post in posts:
         if post:
             post = strip(post)
