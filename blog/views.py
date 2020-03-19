@@ -95,6 +95,16 @@ def post_detail_url(request, tag, author, pk,):
     post['body'] = markdown.markdown(post.body)
     return render(request, 'blog/post_detail.html', {'post': post})
 
+def followers(request, author):
+    account = Account(author, steem_instance=steem)
+    followers = account.get_followers()
+    return render(request, 'blog/userlist.html', {'followers': followers})
+
+def following(request, author):
+    account = Account(author, steem_instance=steem)
+    followers = account.get_following()
+    return render(request, 'blog/userlist.html', {'followers': followers})
+
 
 def post_new(request):
     """    if request.method == "POST":

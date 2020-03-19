@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1>Follow List</h1>
+<div class="post">
+    <ul>
+    {% for follower in followers %}
+    <li>{{ follower }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
