@@ -1,16 +1,16 @@
 {% extends 'blog/base.html' %}
-
 {% block content %}
 {% for post in posts %}
 <div class="post">
     <div class="date">
-        {{ post.author }}
-        {% if post.created %}
-            {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
-        {% endif %}
+        {{ post.author }} {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
     </div>
-    <h1><a href="{% url 'post_detail' permlink=post.permlink author=post.author %}">{{ post.title }}</a></h1>
-    {{ post.body| safe|truncatewords_html:50 |linebreaksbr }}
+    <h1>
+        <a href="{% url 'post_detail' permlink=post.permlink author=post.author %}">{{ post.title }}</a
+    >
+  </h1>
+  {{ post.body| safe|truncatewords_html:50 |linebreaksbr }}
 </div>
 {% endfor %}
+
 {% endblock %}

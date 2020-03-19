@@ -32,14 +32,17 @@ options = {
     "is_mergeable": lambda e1, e2: True,
 }
 sanitizer = Sanitizer(settings=options)
+image_proxy = "https://steemitimages.com/640x0/"
+
 
 def strip(text):
     text['body'] = markdown.markdown(text['body'])
     text['body'] = sanitizer.sanitize(text['body'])
     #x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
     text['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
-                       r'<img src=https://steemitimages.com/640x0/\1 >', text['body'])
+                          rf'<img src={image_proxy}\1 >', text['body'])
     return text
+
 
 def trending(request):
     posts = stm.get_discussions_by_trending(q)
@@ -86,6 +89,7 @@ def followers(request, author):
     account = Account(author, steem_instance=steem)
     followers = account.get_followers(raw_name_list=True, limit=100)
     return render(request, 'blog/userlist.html', {'followers': followers})
+
 
 def following(request, author):
     account = Account(author, steem_instance=steem)

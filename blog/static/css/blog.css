@@ -1,10 +1,14 @@
+
 .page-header {
     background-color: #212529;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
 }
 
-.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+.page-header h1,
+.page-header h1 a,
+.page-header h1 a:visited,
+.page-header h1 a:active {
     color: #f0f0f8;
     font-size: 2em;
     text-decoration: none;
@@ -16,28 +20,34 @@
     border: 1px solid #212529;
 }
 
-.content a, .content a:visited{
+.content a,
+.content a:visited {
     color: #E31337;
 }
-h1, h2, h3, h4 {
+
+h1,
+h2,
+h3,
+h4 {
     font-family: 'Autour', cursive;
 }
 
 h1 {
-    font-size:  2em;
+    font-size: 2em;
 }
 
 h2 {
     font-size: 1.5em;
 }
 
-h3 { 
+h3 {
     font-size: 1em;
 }
 
 hr {
     border: 1px solid #212529;
 }
+
 .date {
     color: #212529;
     font-family: monospace;
@@ -47,11 +57,14 @@ hr {
     float: right;
 }
 
-.post-form textarea, .post-form input {
+.post-form textarea,
+.post-form input {
     width: 100%;
 }
 
-.top-menu, .top-menu:hover, .top-menu:visited {
+.top-menu,
+.top-menu:hover,
+.top-menu:visited {
     color: #f0f0f8;
     float: right;
     font-size: 1em;
@@ -62,16 +75,22 @@ hr {
     font-family: 'Archivo', sans-serif;
     margin-bottom: 70px;
 }
-
-.post h1 a, .post h1 a:visited {
-    color: #212529;
+sub {
+    font-size: small;
 }
 
-.tags li{
-        background-color: #212529;
-        color: #e7e7f1;
-        display: inline;
-        border-radius: 5px;
-        padding: 5px;
-      }
- 
+.post h1 a,
+.post h1 a:visited {
+    color: #212529;
+}
+.follow li {
+    list-style-type: none;
+    }
+
+.tags li {
+    background-color: #212529;
+    color: #e7e7f1;
+    display: inline;
+    border-radius: 5px;
+    padding: 5px;
+}
