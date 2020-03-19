@@ -1,4 +1,5 @@
 .page-header {
+    font-family: "Share Tech Mono", monospace;
     background-color: #212529;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
@@ -9,6 +10,13 @@
     font-size: 2em;
     text-decoration: none;
 }
+
+.page-header h2, .page-header h2 a, .page-header h2 a:visited, .page-header h2 a:active {
+    color: #f0f0f8;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
 
 .page-header a, .page-header a:visited, .page-header a:active {
     color: #f0f0f8;
@@ -45,11 +53,16 @@
 }
 
 .page-footer a, .page-footer a:visited, .page-footer a:active, .page-footer p {
+    font-family: "Fira Code", monospace;
     color: #f0f0f8;
-    font-size: 1em;
+    font-size: 1.5em;
     text-decoration: none;
     text-align: center;
 }
+.copyleft {
+    display:inline-block;
+    transform: rotate(180deg);
+  }
 
 .content {
     margin-left: 40px;
@@ -61,7 +74,7 @@
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Autour', cursive;
+    font-family: 'Share Tech Mono', monospace;
 }
 
 h1 {
@@ -82,7 +95,7 @@ hr {
 
 .date {
     color: #212529;
-    font-family: monospace;
+    font-family: 'Fira Code', monospace;
 }
 
 .save {
@@ -102,7 +115,7 @@ hr {
 
 .post {
     clear: both;
-    font-family: 'Archivo', sans-serif;
+    font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
     border: 3px solid #212529;
@@ -118,7 +131,7 @@ sub {
 
 .follow {
     clear: both;
-    font-family: 'Archivo', sans-serif;
+    font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
     border: 3px solid #212529;

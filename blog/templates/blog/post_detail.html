@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<h1>{{ request.path }}</h1>
 <div class="post">
     <div class="date">
         {{ post.author }} {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes

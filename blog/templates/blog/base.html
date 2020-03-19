@@ -7,7 +7,7 @@
     <title>hiveview Frontend - {{ request.path }}</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Autour|Archivo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono|Fira+Code&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
 
@@ -18,8 +18,6 @@
         {% endif %}
         <a href="/"><img src="{% static "img/Beehive.png" %}" alt="Beehive"></a>
         <h1><a href="/">hiveview Frontend</a></h1>
-
-        <p>{{ request.path }}</p>
         <div class="right">
             <ul>
                 {% url 'home' as home %}
@@ -48,16 +46,17 @@
             </div>
             <div class="col-md-4">
                 <h1>Latest Prices</h1>
-                <div class="post"><div class="date">
-                    <p>Current Price USD: {% usd_price %}</p>
-                    {% get_ticker as live %}
-                    <p>Latest: {{live.ticker.latest}}</p>
-                    <p>Lowest Ask: {{live.ticker.lowest_ask}}</p>
-                    <p>Highest Bid: {{live.ticker.highest_bid}}</p>
-                    <p>Percent Change: {{live.ticker.percent_change}}</p>
-                    <p>Steem Volume: {{live.ticker.steem_volume}}</p>
-                    <p>SBD Volume: {{live.ticker.sbd_volume}}</p>
-                </div>
+                <div class="post">
+                    <div class="date">
+                        <p>Current Price USD: {% usd_price %}</p>
+                        {% get_ticker as live %}
+                        <p>Latest: {{live.ticker.latest}}</p>
+                        <p>Lowest Ask: {{live.ticker.lowest_ask}}</p>
+                        <p>Highest Bid: {{live.ticker.highest_bid}}</p>
+                        <p>Percent Change: {{live.ticker.percent_change}}</p>
+                        <p>Steem Volume: {{live.ticker.steem_volume}}</p>
+                        <p>SBD Volume: {{live.ticker.sbd_volume}}</p>
+                    </div>
                     <!----          {% for key, value in live.ticker.items %}
                 <li>{{key}}: {{ value }}</li>
                 {% endfor %} 
@@ -71,7 +70,7 @@
     <div class="page-footer">
         {% now "Y" as current_year %}
         <p>
-            Copyleft {{ current_year }}
+            <span class="copyleft">&copy;</span> Copyleft {{ current_year }}
         </p>
     </div>
 </body>
