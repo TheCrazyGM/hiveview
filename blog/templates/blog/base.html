@@ -65,7 +65,8 @@
 -->
             </div>
             <div class="post">
-                <form action="request_author/" method="POST">
+                {% url 'account' as account %}
+                <form action="{{ account }}" method="POST">
                     {% csrf_token %}
 
                     <input type="text" value="thecrazygm" name="author" size="20" />

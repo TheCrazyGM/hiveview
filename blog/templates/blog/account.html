@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<h1>{{ request.path }}{{ account.name }}</h1>
+<div class="account">
+    <div class="date">
+        placeholder text
+    </div>
+    <hr />
+    <ul>
+        {% for key, value in account.items %}
+            <li>
+                <strong>{{ key }}</strong>: {{value}} 
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

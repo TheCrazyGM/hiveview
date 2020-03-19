@@ -99,18 +99,19 @@ def post_detail(request, author, permlink, **args):
 def followers(request, author):
     account = Account(author, steem_instance=steem)
     followers = account.get_followers(raw_name_list=True, limit=100)
-    return render(request, 'blog/userlist.html', {'followers': followers})
+    return render(request, 'blog/follower.html', {'followers': followers})
 
 
 def following(request, author):
     account = Account(author, steem_instance=steem)
     followers = account.get_following(raw_name_list=True, limit=100)
-    return render(request, 'blog/userlist.html', {'followers': followers})
+    return render(request, 'blog/follower.html', {'followers': followers})
 
 def request_author(request):
   if(request.POST.get('req_author')):
     author =str(request.POST.get('author'))
-    return blog_posts(request, author)
+    account = Account(author)
+    return render(request, 'blog/account.html', {'account': account})
 
 
 def post_new(request):
