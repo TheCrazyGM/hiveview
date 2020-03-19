@@ -108,8 +108,8 @@ def following(request, author):
     return render(request, 'blog/follower.html', {'followers': followers})
 
 def request_author(request):
-  if(request.POST.get('req_author')):
-    author =str(request.POST.get('author'))
+  if(request.GET.get('req_author')):
+    author =str(request.GET.get('author'))
     account = Account(author)
     return render(request, 'blog/account.html', {'account': account})
 

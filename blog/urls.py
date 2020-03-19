@@ -6,7 +6,7 @@ urlpatterns = [
     path('trending/', views.trending, name='trending'),
     path('hot/', views.hot, name='hot'),
     path('latest/', views.latest, name='latest'),
-    path('request_author/', views.request_author, name='author'),
+    path('request_account/', views.request_author, name='account'),
     re_path(r'^@(?P<author>[^~,]+)\/followers/?$',
             views.followers, name='followers'),
     re_path(r'^@(?P<author>[^~,]+)\/following/?$',
