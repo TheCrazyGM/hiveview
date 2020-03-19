@@ -60,13 +60,12 @@
     text-align: center;
 }
 .copyleft {
-    display:inline-block;
+    display: inline-block;
     transform: rotate(180deg);
-  }
+}
 
 .content {
-    margin-left: 40px;
-    width: auto;
+    width: 100%;
 }
 
 .content a, .content a:visited {
@@ -114,7 +113,6 @@ hr {
 }
 
 .post {
-    clear: both;
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
@@ -130,7 +128,6 @@ sub {
 }
 
 .follow {
-    clear: both;
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
@@ -143,7 +140,7 @@ sub {
 
 .follow li {
     list-style-type: none;
-    display: flex;
+    display: inline;
     padding-top: 10px;
 }
 

@@ -60,15 +60,6 @@ def hot(request):
             post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-
-def promoted(request):
-    posts = stm.get_discussions_by_promoted(q)
-    for post in posts:
-        if post:
-            post = strip(post)
-    return render(request, 'blog/post_list.html', {'posts': posts})
-
-
 def latest(request):
     posts = stm.get_discussions_by_created(q)
     for post in posts:
@@ -115,6 +106,11 @@ def following(request, author):
     account = Account(author, steem_instance=steem)
     followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/userlist.html', {'followers': followers})
+
+def request_author(request):
+  if(request.POST.get('req_author')):
+    author =str(request.POST.get('author'))
+    return blog_posts(request, author)
 
 
 def post_new(request):
