@@ -63,6 +63,10 @@ def latest(request):
     posts = stm.get_discussions_by_created(q)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
+def tag(request, tag):
+    tag_q = Query(limit=10, tag=tag)
+    posts = stm.get_discussions_by_trending(tag_q)
+    return render(request, 'blog/post_list.html', {"posts": posts})
 
 def blog_posts(request, author):
     author = re.sub(r'\/', '', author)

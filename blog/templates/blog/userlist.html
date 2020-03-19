@@ -1,16 +1,16 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<h1>Username List</h1>
 <div class="date">
     {{ followers|length }} users in list
 </div>
+<h1>Username List</h1>
 <div class="follow">
     <ul>
         {% for follower in followers %}
-        <a href="{% url 'blog_posts' author=follower %}">
-            <li>{{ follower }} <i class="glyphicon glyphicon-link"></i></a></li>
-        </a>
+            <li>
+                <a href="{% url 'blog_posts' author=follower %}">{{ follower }} <i class="glyphicon glyphicon-link"></i></a>
+            </li>
         {% endfor %}
     </ul>
 </div>

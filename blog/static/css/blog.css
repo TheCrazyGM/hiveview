@@ -1,34 +1,49 @@
-
 .page-header {
     background-color: #212529;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
 }
 
-.page-header h1,
-.page-header h1 a,
-.page-header h1 a:visited,
-.page-header h1 a:active {
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #f0f0f8;
     font-size: 2em;
     text-decoration: none;
-    float: right;
+}
+
+.page-header p {
+    color: #f0f0f8;
+    font-size: 1em;
+    text-decoration: none;
+    text-align: left;
+}
+
+.page-header img {
+    float: left;
+}
+
+.page-footer {
+    background-color: #212529;
+    margin-top: 0;
+    padding: 40px 40px 40px 40px;
+}
+
+.page-footer a, .page-footer a:visited, .page-footer a:active, .page-footer p {
+    color: #f0f0f8;
+    font-size: 1em;
+    text-decoration: none;
+    text-align: center;
 }
 
 .content {
     margin-left: 40px;
-    border: 1px solid #212529;
+    width: auto;
 }
 
-.content a,
-.content a:visited {
+.content a, .content a:visited {
     color: #E31337;
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
     font-family: 'Autour', cursive;
 }
 
@@ -57,14 +72,11 @@ hr {
     float: right;
 }
 
-.post-form textarea,
-.post-form input {
+.post-form textarea, .post-form input {
     width: 100%;
 }
 
-.top-menu,
-.top-menu:hover,
-.top-menu:visited {
+.top-menu, .top-menu:hover, .top-menu:visited {
     color: #f0f0f8;
     float: right;
     font-size: 1em;
@@ -73,19 +85,29 @@ hr {
 
 .post {
     font-family: 'Archivo', sans-serif;
-    margin-bottom: 70px;
+    padding: 10px;
+    margin-bottom: 40px;
+    border: 3px solid #212529;
 }
+
 sub {
     font-size: small;
 }
 
-.post h1 a,
-.post h1 a:visited {
+.post h1 a, .post h1 a:visited {
     color: #212529;
 }
+
+.follow ul {
+    columns: 3;
+    border: 3px solid black;
+}
+
 .follow li {
     list-style-type: none;
-    }
+    display: block;
+    padding-top: 10px;
+}
 
 .tags li {
     background-color: #212529;

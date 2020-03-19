@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>hiveview Frontend</title>
+    <title>hiveview Frontend - {{ request.path }}</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href="https://fonts.googleapis.com/css?family=Autour|Archivo&display=swap" rel="stylesheet">
@@ -16,6 +16,7 @@
         {% endif %}
         <a href="/" ><img src="{% static "img/Beehive.png" %}" alt="Beehive"></a>
         <h1><a href="/" >hiveview Frontend</a></h1>
+        <p>{{ request.path }}</p>
     </div>
     <div class="content container">
         <div class="row">
@@ -24,6 +25,12 @@
                 {% endblock %}
             </div>
         </div>
+    </div>
+    <div class="page-footer">
+        {% now "Y" as current_year %}
+        <p>
+            Copyleft {{ current_year }}
+        </p>
     </div>
 </body>
 

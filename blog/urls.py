@@ -20,5 +20,6 @@ urlpatterns = [
     path('post/new/', views.post_new, name='post_new'),
     path('@<slug:author>/<slug:permlink>/edit/',
          views.post_edit, name='post_edit'),
+    re_path(r'^(?P<tag>[^~,]+/?$)', views.tag, name='tag'),
 
 ]
