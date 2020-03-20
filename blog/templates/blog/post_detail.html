@@ -16,7 +16,8 @@
     <div class="tags">
         <h3>Tags:</h3>
         {% for tags in post.tags %}
-        <li>{{tags}}</li>
+        {% url 'tag' tags as tag_link %}
+        <a href="{{tag_link}}"><li>{{tags}}</li></a>
         {% endfor %}
     </div>
     <hr /> 
