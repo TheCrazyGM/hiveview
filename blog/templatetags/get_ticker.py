@@ -1,5 +1,5 @@
-from bhive.market import Market
-from bhive.instance import shared_hive_instance
+from beem.market import Market
+from beem.instance import shared_hive_instance
 from django import template
 import json
 import re
