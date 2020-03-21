@@ -2,22 +2,22 @@ import re
 
 import markdown
 import requests
-from beem import Steem
+from beem import Hive
 from beem.account import Account
 from beem.comment import Comment
 from beem.discussions import Query
-from beem.instance import set_shared_steem_instance
+from beem.instance import set_shared_hive_instance
 from beem.utils import construct_authorperm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from html_sanitizer import Sanitizer
-from steem import Steem as Steempy
+from hive import Hive as Hivepy
 
-nodes = ["https://api.steemit.com", "https://anyx.io"]
+nodes = ["https://api.hive.blog", "https://anyx.io"]
 q = Query(limit=10)
-stm = Steempy(nodes=nodes)
-steem = Steem(node=nodes)
-set_shared_steem_instance(steem)
+hvpy = Hivepy(nodes=nodes)
+hv = Hive(node=nodes)
+set_shared_hive_instance(hv)
 options = {
     "tags": {
         "a", "h1", "h2", "h3", "strong", "em", "p", "ul", "ol",
@@ -33,7 +33,7 @@ options = {
     "is_mergeable": lambda e1, e2: True,
 }
 sanitizer = Sanitizer(settings=options)
-image_proxy = "https://steemitimages.com/640x0/"
+image_proxy = "https://images.hive.blog/640x0/"
 
 
 def strip(text):
@@ -46,7 +46,7 @@ def strip(text):
 
 
 def trending(request):
-    posts = stm.get_discussions_by_trending(q)
+    posts = hvpy.get_discussions_by_trending(q)
     for post in posts:
         if post:
             post = strip(post)
@@ -54,14 +54,14 @@ def trending(request):
 
 
 def hot(request):
-    posts = stm.get_discussions_by_hot(q)
+    posts = hvpy.get_discussions_by_hot(q)
     for post in posts:
         if post:
             post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 def latest(request):
-    posts = stm.get_discussions_by_created(q)
+    posts = hvpy.get_discussions_by_created(q)
     for post in posts:
         if post:
             post = strip(post)
@@ -69,7 +69,7 @@ def latest(request):
 
 def tag(request, tag):
     tag_q = Query(limit=10, tag=tag)
-    posts = stm.get_discussions_by_trending(tag_q)
+    posts = hvpy.get_discussions_by_trending(tag_q)
     for post in posts:
         if post:
             post = strip(post)
@@ -77,7 +77,7 @@ def tag(request, tag):
 
 def blog_posts(request, author):
     author = re.sub(r'(\/)', '', author)
-    account = Account(author, steem_instance=steem)
+    account = Account(author, hive_instance=hv)
     posts = account.get_blog()
     for post in posts:
         if post:
@@ -87,9 +87,9 @@ def blog_posts(request, author):
 
 def post_detail(request, author, permlink, **args):
     author_perm = construct_authorperm(author, permlink)
-    post = Comment(author_perm, steem_instance=steem)
+    post = Comment(author_perm, hive_instance=hv)
     if post:
-        replies = stm.get_content_replies(author, permlink)
+        replies = hvpy.get_content_replies(author, permlink)
         post = strip(post)
         for reply in replies:
             reply = strip(reply)
@@ -97,13 +97,13 @@ def post_detail(request, author, permlink, **args):
 
 
 def followers(request, author):
-    account = Account(author, steem_instance=steem)
+    account = Account(author, hive_instance=hv)
     followers = account.get_followers(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
 
 def following(request, author):
-    account = Account(author, steem_instance=steem)
+    account = Account(author, hive_instance=hv)
     followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
