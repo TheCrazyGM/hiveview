@@ -38,7 +38,7 @@
             ],
             "version": "==4.8.2"
         },
-        "beem": {
+        "bhive": {
             "hashes": [
                 "sha256:6a2bb98b0e62601cf5470b46c203b71b55f2c866a4745f37d68647764826a651",
                 "sha256:ade2bdc85293491a0733937317cb6d28aca42a52dadbcc3d8c72562979a66653"

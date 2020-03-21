@@ -1,6 +1,6 @@
-from beem import Hive
-from beem.instance import shared_hive_instance
-from beem.market import Market
+from bhive import Hive
+from bhive.instance import shared_hive_instance
+from bhive.market import Market
 from django import template
 
 register = template.Library()
