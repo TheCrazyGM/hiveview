@@ -1,25 +1,25 @@
 .page-header {
     font-family: "Share Tech Mono", monospace;
-    background-color: #212529;
+    background-color: black;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: #f0f0f8;
+    color: white;
     font-size: 2em;
     text-decoration: none;
 }
 
 .page-header h2, .page-header h2 a, .page-header h2 a:visited, .page-header h2 a:active {
-    color: #f0f0f8;
+    color: white;
     font-size: 1.5em;
     text-decoration: none;
 }
 
 
 .page-header a, .page-header a:visited, .page-header a:active {
-    color: #f0f0f8;
+    color: white;
     font-size: 2em;
     text-decoration: none;
 }
@@ -30,14 +30,14 @@
 }
 
 .page-header li a, .page-header li a:visited, li .page-header li a:active {
-    color: #f0f0f8;
+    color: white;
     font-size: 2em;
     text-decoration: none;
 }
 
 .page-header li {
-    background-color: #212529;
-    color: #f0f0f8;
+    background-color: black;
+    color: white;
     padding: 0 10px 0 0;
     display: inline;
 }
@@ -47,14 +47,14 @@
 }
 
 .page-footer {
-    background-color: #212529;
+    background-color: black;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
 }
 
 .page-footer a, .page-footer a:visited, .page-footer a:active, .page-footer p {
     font-family: "Fira Code", monospace;
-    color: #f0f0f8;
+    color: white;
     font-size: 1.5em;
     text-decoration: none;
     text-align: center;
@@ -69,7 +69,7 @@
 }
 
 .content a, .content a:visited {
-    color: #E31337;
+    color: red;
 }
 
 h1, h2, h3, h4 {
@@ -89,11 +89,11 @@ h3 {
 }
 
 hr {
-    border: 1px solid #212529;
+    border: 1px solid black;
 }
 
 .date {
-    color: #212529;
+    color: black;
     font-family: 'Fira Code', monospace;
 }
 
@@ -106,7 +106,7 @@ hr {
 }
 
 .top-menu, .top-menu:hover, .top-menu:visited {
-    color: #f0f0f8;
+    color: white;
     float: right;
     font-size: 1em;
     margin-right: 20px;
@@ -116,7 +116,7 @@ hr {
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
-    border: 3px solid #212529;
+    border: 3px solid black;
 }
 
 sub {
@@ -124,14 +124,14 @@ sub {
 }
 
 .post h1 a, .post h1 a:visited {
-    color: #212529;
+    color: black;
 }
 
 .follow {
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
-    border: 3px solid #212529;
+    border: 3px solid black;
 }
 
 .follow ul {
@@ -148,7 +148,7 @@ sub {
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
-    border: 3px solid #212529;
+    border: 3px solid black;
 }
 
 .account ul {
@@ -162,8 +162,8 @@ sub {
 }
 
 .tags li {
-    background-color: #212529;
-    color: #e7e7f1;
+    background-color: black;
+    color: white;
     display: inline;
     border-radius: 5px;
     padding: 5px;

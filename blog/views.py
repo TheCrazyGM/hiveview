@@ -13,10 +13,10 @@ from django.utils import timezone
 from html_sanitizer import Sanitizer
 from hive import Hive as Hivepy
 
-nodes = ["https://api.hive.blog", "https://anyx.io"]
+#nodes = ["https://api.hive.blog", "https://anyx.io"]
 q = Query(limit=10)
-hvpy = Hivepy(nodes=nodes)
-hv = Hive(node=nodes)
+hvpy = Hivepy()#nodes=nodes)
+hv = Hive()#node=nodes)
 set_shared_hive_instance(hv)
 options = {
     "tags": {
