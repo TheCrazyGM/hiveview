@@ -1,5 +1,7 @@
 from django.urls import path, re_path
 from . import views
+def trigger_error(request):
+    division_by_zero = 1 / 0
 
 urlpatterns = [
     path('', views.trending, name='home'),
@@ -7,6 +9,7 @@ urlpatterns = [
     path('hot/', views.hot, name='hot'),
     path('latest/', views.latest, name='latest'),
     path('request_account/', views.request_author, name='account'),
+    path('sentry-debug/', trigger_error),
     re_path(r'^@(?P<author>[^~,]+)\/followers/?$',
             views.followers, name='followers'),
     re_path(r'^@(?P<author>[^~,]+)\/following/?$',

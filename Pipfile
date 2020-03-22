@@ -8,11 +8,11 @@ autopep8 = "*"
 
 [packages]
 django = "*"
-beem = "*"
 markdown = "*"
 requests = "*"
 steem = "*"
 html-sanitizer = "*"
+bhive = "*"
 
 [requires]
 python_version = "3.7"

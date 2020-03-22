@@ -19,7 +19,7 @@
                     {% if user.is_authenticated %}
                     <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
                     {% endif %}
-                    <a href="/"><img src="{% static "img/Beehive.png" %}" alt="Beehive"></a>
+                    <!-- <a href="/"><img src="{% static "img/bee.png" %}" alt="Beehive" width="120px"></a> -->
                     <h1><a href="/">hiveview Frontend</a></h1>
                 </div>
                     <div class="col-4">
@@ -58,7 +58,7 @@
                     <p>Highest Bid: {{live.ticker.highest_bid}}</p>
                     <p>Percent Change: {{live.ticker.percent_change}}</p>
                     <p>Hive Volume: {{live.ticker.steem_volume}}</p>
-                    <p>HBD Volume: {{live.ticker.sbd_volume}}</p>
+                    <p>HBD Volume: {{live.ticker.hbd_volume}}</p>
                 </div>
                 <!----          {% for key, value in live.ticker.items %}
                 <li>{{key}}: {{ value }}</li>
