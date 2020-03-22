@@ -2,12 +2,12 @@ import re
 
 import markdown
 import requests
-from beem import Hive
-from beem.account import Account
-from beem.comment import Comment
-from beem.discussions import Query
-from beem.instance import set_shared_hive_instance
-from beem.utils import construct_authorperm
+from bhive import Hive
+from bhive.account import Account
+from bhive.comment import Comment
+from bhive.discussions import Query
+from bhive.instance import set_shared_hive_instance
+from bhive.utils import construct_authorperm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from html_sanitizer import Sanitizer
