@@ -1,57 +1,55 @@
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 .page-header {
     font-family: "Share Tech Mono", monospace;
     background-color: black;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
 }
-
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: white;
     font-size: 2em;
     text-decoration: none;
 }
-
 .page-header h2, .page-header h2 a, .page-header h2 a:visited, .page-header h2 a:active {
     color: white;
     font-size: 1.5em;
     text-decoration: none;
 }
-
-
 .page-header a, .page-header a:visited, .page-header a:active {
     color: white;
     font-size: 2em;
     text-decoration: none;
 }
-
 .page-header ul {
     text-align: right;
     float: right;
 }
-
 .page-header li a, .page-header li a:visited, li .page-header li a:active {
     color: white;
     font-size: 2em;
     text-decoration: none;
 }
-
 .page-header li {
     background-color: black;
     color: white;
     padding: 0 10px 0 0;
     display: inline;
 }
-
 .page-header img {
     float: left;
 }
+.page-content {
+    padding: 10px;
+  }
 
 .page-footer {
     background-color: black;
     margin-top: 0;
     padding: 40px 40px 40px 40px;
 }
-
 .page-footer a, .page-footer a:visited, .page-footer a:active, .page-footer p {
     font-family: "Fira Code", monospace;
     color: white;
@@ -63,104 +61,83 @@
     display: inline-block;
     transform: rotate(180deg);
 }
-
 .content {
     width: 100%;
 }
-
 .content a, .content a:visited {
     color: red;
 }
-
 h1, h2, h3, h4 {
     font-family: 'Share Tech Mono', monospace;
 }
-
 h1 {
     font-size: 2em;
 }
-
 h2 {
     font-size: 1.5em;
 }
-
 h3 {
     font-size: 1em;
 }
-
 hr {
     border: 1px solid black;
 }
-
 .date {
     color: black;
     font-family: 'Fira Code', monospace;
 }
-
 .save {
     float: right;
 }
-
 .post-form textarea, .post-form input {
     width: 100%;
 }
-
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: white;
     float: right;
     font-size: 1em;
     margin-right: 20px;
 }
-
 .post {
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
     border: 3px solid black;
 }
-
 sub {
     font-size: small;
 }
-
 .post h1 a, .post h1 a:visited {
     color: black;
 }
-
 .follow {
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
     border: 3px solid black;
 }
-
 .follow ul {
     columns: 3;
 }
-
 .follow li {
     list-style-type: none;
     display: inline;
     padding-top: 10px;
 }
-
 .account {
     font-family: 'Fira Code', monospace;
     padding: 10px;
     margin-bottom: 40px;
     border: 3px solid black;
 }
-
 .account ul {
     columns: 1;
 }
-
 .account li {
     list-style-type: none;
     display: block;
     padding-top: 10px;
 }
-
 .tags li {
     background-color: black;
     color: white;
