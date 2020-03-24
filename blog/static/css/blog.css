@@ -2,7 +2,18 @@ body {
     color: black;
     max-width: 100%;
     overflow-x: hidden;
+}
 
+b, strong {
+    font-weight: bolder;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+hr {
+    border: 1px solid black;
 }
 
 .page-header {
@@ -52,6 +63,7 @@ body {
     text-align: center;
     vertical-align: bottom;
 }
+
 .page-footer img {
     float: none;
 }
@@ -68,14 +80,6 @@ body {
 
 .content a, .content a:visited {
     color: red;
-}
-
-h1, h2, h3, h4 {
-    font-family: 'Share Tech Mono', monospace;
-}
-
-hr {
-    border: 1px solid black;
 }
 
 .date {
@@ -111,7 +115,7 @@ hr {
 
 .follow li {
     list-style-type: none;
-    display: inline;
+    display: block;
     padding-top: 10px;
 }
 
