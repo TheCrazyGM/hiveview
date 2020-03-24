@@ -13,6 +13,7 @@ requests = "*"
 steem = "*"
 html-sanitizer = "*"
 bhive = "*"
+pymdown-extensions = "*"
 
 [requires]
 python_version = "3.7"

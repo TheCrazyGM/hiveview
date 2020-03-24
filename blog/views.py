@@ -33,11 +33,11 @@ options = {
     "is_mergeable": lambda e1, e2: True,
 }
 sanitizer = Sanitizer(settings=options)
-image_proxy = "https://images.hive.blog/640x0/"
+image_proxy = "https://images.hive.blog/480x0/"
 
 
 def strip(text):
-    text['body'] = markdown.markdown(text['body'])
+    text['body'] = markdown.markdown(text['body'], extensions=['nl2br', 'codehilite', 'pymdownx.extra','pymdownx.magiclink', 'pymdownx.betterem', 'pymdownx.inlinehilite'])
     text['body'] = sanitizer.sanitize(text['body'])
     #x['body'] = re.sub("(<h1>|<h2>)", "<h3>", x['body'])
     text['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",

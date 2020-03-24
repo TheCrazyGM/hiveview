@@ -5,86 +5,61 @@
 
 <head>
     <title>hiveview Frontend - {{ request.path }}</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono|Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech+Mono|Electrolize&display=swap">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.ico" %}" />
 </head>
 
 <body>
     <div class="container-flex content">
-        <div class="row page-header">
-            <div class="col-8">
-                {% if user.is_authenticated %}
-                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-                {% endif %}
-                <!-- <a href="/"><img src="{% static "img/bee.png" %}" alt="Beehive" width="120px"></a> -->
-                <h1><a href="/">hiveview Frontend</a></h1>
+        <div class="row align-items-end page-header">
+            <div class="col align-self-left">
+                <h1><a href="/">hiveview Frontend</a></h2>
             </div>
-            <div class="col-4">
+            <div align="center" class="col align-self-center">
+                <a href="/"><img src="{% static "img/bee.png" %}" alt="Beehive" width="120px"></a>
+            </div>
+            <div class="col align-self-right">
                 <ul>
                     {% url 'home' as home %}
-                    <li><a href="{{ home }}">{{ home }}</a>
-                    </li>
+                    <li><a href="{{ home }}">{{ home }} |</a></li>
                     {% url 'trending' as trending %}
-                    <li><a href="{{ trending }}">{{ trending }}</a>
-                    </li>
+                    <li><a href="{{ trending }}">{{ trending }} |</a></li>
                     {% url 'hot' as hot %}
-                    <li><a href="{{ hot }}">{{ hot }}</a>
-                    </li>
+                    <li><a href="{{ hot }}">{{ hot }} |</a></li>
                     {% url 'latest' as latest %}
-                    <li><a href="{{ latest }}">{{ latest }}</a>
-                    </li>
+                    <li><a href="{{ latest }}">{{ latest }} |</a></li>
                 </ul>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-    <div class="page-content">
-        <div class="row">
+
+        <div class="row page-content">
 
             <div class="col-md-8">
                 {% block content %}
                 {% endblock %}
             </div>
             <div class="col-md-4">
-                <h1>Latest Prices</h1>
-                <div class="post">
-                    <div class="date">
-                        <p>Current Price USD: {% usd_price %}</p>
-                        {% get_ticker as live %}
-                        <p>Latest: {{live.ticker.latest}}</p>
-                        <p>Lowest Ask: {{live.ticker.lowest_ask}}</p>
-                        <p>Highest Bid: {{live.ticker.highest_bid}}</p>
-                        <p>Percent Change: {{live.ticker.percent_change}}</p>
-                        <p>Hive Volume: {{live.ticker.hive_volume}}</p>
-                        <p>HBD Volume: {{live.ticker.hbd_volume}}</p>
-                    </div>
-                    <!----          {% for key, value in live.ticker.items %}
-                <li>{{key}}: {{ value }}</li>
-                {% endfor %} 
--->
-                </div>
+                <h1>Widgets</h1>
                 <div class="post">
                     {% url 'account' as account %}
                     <form action="{{ account }}" method="GET">
                         {% csrf_token %}
-
                         <input type="text" value="thecrazygm" name="author" size="20" />
                         <input class="btn btn-primary" type="submit" value="Query user" name="req_author">
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    <div class="page-footer">
-        {% now "Y" as current_year %}
-        <p>
-            <span class="copyleft">&copy;</span> Copyleft {{ current_year }}
-        </p>
+        <div class="row align-items-end page-footer">
+            <div class="col">
+                <a href="https://hive.io"><img src="{% static "img/powered-by-hive.png" %}" alt="powered-by-hive"
+                        width="240px"></a>
+                {% now "Y" as current_year %}
+                <p><span class="copyleft">&copy;</span> Copyleft {{ current_year }}</p>
+            </div>
+        </div>
     </div>
 </body>
 

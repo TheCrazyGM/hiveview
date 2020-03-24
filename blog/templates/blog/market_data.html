@@ -1,0 +1,14 @@
+{% extends base %}
+<h1>Latest Prices</h1>
+<div class="post">
+    <div class="date">
+        <p>Current Price USD: {% usd_price %}</p>
+        {% get_ticker as live %}
+        <p>Latest: {{live.ticker.latest}}</p>
+        <p>Lowest Ask: {{live.ticker.lowest_ask}}</p>
+        <p>Highest Bid: {{live.ticker.highest_bid}}</p>
+        <p>Percent Change: {{live.ticker.percent_change}}</p>
+        <p>Hive Volume: {{live.ticker.hive_volume}}</p>
+        <p>HBD Volume: {{live.ticker.hbd_volume}}</p>
+    </div>
+</div>

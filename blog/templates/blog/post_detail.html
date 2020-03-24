@@ -4,7 +4,7 @@
 <h1>{{ request.path }}</h1>
 <div class="post">
     <div class="date">
-        {{ post.author }} {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
+        {{ post.author }} —  {{ post.created }} — {{post.pending_payout_value }} — {{post.active_votes|length }} Votes
     </div>
 
     {% if user.is_authenticated %}
@@ -22,7 +22,7 @@
     </div>
     <hr /> 
     {% for reply in replies %}
-    <strong>{{reply.author}}</strong> - {{reply.created}}
+    <div class="date">{{reply.author}}</strong> - {{reply.created}}</div>
     {{reply.body|safe}}
     <hr />
     {% endfor %}
