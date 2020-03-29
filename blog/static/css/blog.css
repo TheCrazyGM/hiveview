@@ -15,6 +15,7 @@ h1, h2, h3, h4 {
 hr {
     border: 1px solid black;
 }
+
 .red {
     color: red;
 }
@@ -144,4 +145,29 @@ hr {
     display: inline;
     border-radius: 5px;
     padding: 10px;
+}
+
+.post th {
+    padding-right: 4px !important;
+    padding-left: 4px !important;
+}
+
+.post tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.input-group input {
+    text-align: right;
+}
+
+.table-4px td {
+    padding: 4px;
+}
+
+#buySell .input-group-append span {
+    width: 97px;
+}
+
+#buySell .input-group-prepend span {
+    width: 85px;
 }
