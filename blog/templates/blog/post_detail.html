@@ -4,7 +4,7 @@
 <h1>{{ request.path }}</h1>
 <div class="post">
     <div class="date">
-        <a href="/@{{ post.author }}/profile/">{{post.author}}</a> —  {{ post.created }} — {{post.pending_payout_value }} — {{post.active_votes|length }} Votes
+        <a href="/@{{ post.author }}/">{{post.author}}</a> —  {{ post.created }} — {{post.pending_payout_value }} — {{post.active_votes|length }} Votes
     </div>
 
     {% if user.is_authenticated %}
@@ -22,7 +22,7 @@
     </div>
     <hr /> 
     {% for reply in replies %}
-    <div class="date"><a href="/@{{ reply.author }}/profile/">{{reply.author}}</a> - {{reply.created}}</div>
+    <div class="date"><a href="/@{{ reply.author }}/">{{reply.author}}</a> - {{reply.created}}</div>
     {{reply.body|safe}}
     <hr />
     {% endfor %}

@@ -7,7 +7,7 @@
 
 <div class="post">
     <div class="date">
-        <a href="/@{{ post.author }}/profile/">{{post.author}}</a> {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
+        <a href="/@{{ post.author }}/">{{post.author}}</a> {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
     </div>
     <h1>
         <a href="{% url 'post_detail' permlink=post.permlink author=post.author %}">{{ post.title }}</a>
