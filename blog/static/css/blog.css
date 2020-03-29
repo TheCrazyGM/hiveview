@@ -86,7 +86,7 @@ hr {
     color: red;
 }
 
-.date {
+.date, .date a {
     color: grey;
     font-size: smaller;
     text-decoration: underline;
