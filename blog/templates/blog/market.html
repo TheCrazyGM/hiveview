@@ -1,9 +1,10 @@
-{% extends 'blog/base_nosidebar.html' %}
+{% extends 'blog/base.html' %}
 {% block content %}
+<h1>{{ request.path }}</h1>
 <div class="post">
     <div id="header" class="container-fluid">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col">
                 <div class="well">
                     <div class="row">
                         <div class="col">
@@ -79,7 +80,7 @@
         </div>
         <div class="container-fluid">
             <div id="buySell" class="row">
-                <div class="col-md-6">
+                <div class="col">
                     <div class="well">
                         <h1 style="text-align:center;">Buy HIVE</h1>
                         <p id="highestBid" style="text-align:center;">Best:</p>
@@ -123,7 +124,7 @@
                     <button type="button" class="btn btn-primary float-right" style="width:97px;"
                         onclick="buy()">Buy</button>
                 </div>
-                <div class="col-md-6">
+                <div class="col">
                     <div class="well">
                         <h1 style="text-align:center;">Sell HIVE</h1>
                         <p id="lowestAsk" style="text-align:center;">Best:</p>
@@ -169,8 +170,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <h1 style="text-align:center;">Buy Orders</h1>
+                <div class="col">
+                    <h1 style="padding-top:16px;text-align:center;">Buy Orders</h1>
                     <table id="orderBookBids" class="table table-striped table-condensed table-4px"
                         style="text-align:right">
                         <tr>
@@ -182,8 +183,8 @@
 
                     </table>
                 </div>
-                <div class="col-md-6">
-                    <h1 style="text-align:center;">Sell Orders</h1>
+                <div class="col">
+                    <h1 style="padding-top:16px;text-align:center;">Sell Orders</h1>
                     <table id="orderBookAsks" class="table table-striped table-condensed table-4px"
                         style="text-align:right">
                         <tr>

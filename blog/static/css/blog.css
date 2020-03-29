@@ -147,17 +147,17 @@ hr {
     padding: 10px;
 }
 
-.post th {
-    padding-right: 4px !important;
-    padding-left: 4px !important;
+th {
+    padding: 4px;
+    margin: 0px;
 }
 
-.post tr:nth-child(odd) {
-    background-color: #f2f2f2;
+tr:nth-child(odd) {
+    background-color: lightgrey;
 }
 
 .input-group input {
-    text-align: right;
+    text-align: left !important;
 }
 
 .table-4px td {
@@ -165,9 +165,11 @@ hr {
 }
 
 #buySell .input-group-append span {
-    width: 97px;
+    width: 100px;
+    padding: 6px;
 }
 
 #buySell .input-group-prepend span {
-    width: 85px;
+    width: 90px;
+    padding: 6px;
 }
