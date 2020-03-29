@@ -107,12 +107,17 @@ def following(request, author):
     followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
-def request_author(request):
+def request_author(request, *args, **kwargs):
   if(request.GET.get('req_author')):
     author =str(request.GET.get('author'))
-    account = Account(author)
-    return render(request, 'blog/account.html', {'account': account})
+  else:
+    if 'author' in kwargs:
+        author = kwargs['author']
+  account = Account(author)
+  return render(request, 'blog/account.html', {'account': account})
 
+def market(request):    
+    return render(request, 'blog/market.html')    
 
 def post_new(request):
     """    if request.method == "POST":

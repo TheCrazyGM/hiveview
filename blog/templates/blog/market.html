@@ -1,0 +1,546 @@
+{% extends 'blog/base_nosidebar.html' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+
+{% block content %}
+<div class="post">
+    <div id="header" class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                    <div class="row">
+                        <div class="col">
+                            <h1 style="font-size:42px;text-align:center;">Trade HIVE</h1>
+                        </div>
+                    </div>
+                    <div class="row" style="">
+                        <div class="col">
+                            <form class="form">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="font-size:24px;">@</span>
+                                        </div>
+                                        <input id="user" type="text" class="form-control" value=""
+                                            style="font-size:24px;text-align:left;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-top:16px;padding-bottom:16px;bottom:0px;">
+                            <h2 style="text-align:center;">Settings</h2>
+                            <form class="form">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Node:</span>
+                                        </div>
+                                        <input id="node" type="text" class="form-control"
+                                            value="https://hive.3speak.online">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Order ID:</span>
+                                        </div>
+                                        <input id="orderId" type="text" class="form-control" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Refresh (sec):</span>
+                                        </div>
+                                        <input id="orderId" type="text" class="form-control" value="30">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary float-right" style="width:97px;"
+                                onclick="refresh()">Refresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2 style="text-align:center;">Recent Trades</h2>
+                <table id="recentTrades" class="table table-condensed table-4px" style="text-align:right">
+                    <tr>
+                        <th>Price</th>
+                        <th>Quote</th>
+                        <th>Base</th>
+                        <th>Time</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div id="buySell" class="row">
+                <div class="col-md-6">
+                    <div class="well">
+                        <h2 style="text-align:center;">Buy HIVE</h2>
+                        <p id="highestBid" style="text-align:center;">Best:</p>
+                    </div>
+                    <form class="form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text span94">Price:</span>
+                                </div>
+                                <input id="buyPrice" type="text" class="form-control" oninput="changedBuyPrice()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">HIVE/HBD</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Amount:</span>
+                                </div>
+                                <input id="buyAmount" type="text" class="form-control" oninput="changedBuyPrice()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">HIVE</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Total:</span>
+                                </div>
+                                <input id="buyTotal" type="text" class="form-control" oninput="changedBuyTotal()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">HBD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <p id="availableHBD" style="text-align:center">Available:</p>
+                    <button type="button" class="btn btn-primary float-right" style="width:97px;"
+                        onclick="buy()">Buy</button>
+                </div>
+                <div class="col-md-6">
+                    <div class="well">
+                        <h2 style="text-align:center;">Sell HIVE</h2>
+                        <p id="lowestAsk" style="text-align:center;">Best:</p>
+                    </div>
+                    <form class="form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Price:</span>
+                                </div>
+                                <input id="sellPrice" type="text" class="form-control" oninput="changedSellPrice()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">HIVE/HBD</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Amount:</span>
+                                </div>
+                                <input id="sellAmount" type="text" class="form-control" oninput="changedSellPrice()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">HIVE</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Total:</span>
+                                </div>
+                                <input id="sellTotal" type="text" class="form-control" oninput="changedSellTotal()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">HBD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <p id="availableHIVE" style="text-align:center">Available:</p>
+                    <button type="button" class="btn btn-primary" style="float:right;width:97px;"
+                        onclick="sell()">Sell</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 style="text-align:center;">Buy Orders</h2>
+                    <table id="orderBookBids" class="table table-striped table-condensed table-4px"
+                        style="text-align:right">
+                        <tr>
+                            <th>Total HBD</th>
+                            <th>HBD</th>
+                            <th>HIVE</th>
+                            <th>HBD/HIVE</th>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h2 style="text-align:center;">Sell Orders</h2>
+                    <table id="orderBookAsks" class="table table-striped table-condensed table-4px"
+                        style="text-align:right">
+                        <tr>
+                            <th>HBD/HIVE</th>
+                            <th>HIVE</th>
+                            <th>HBD</th>
+                            <th>Total HBD</th>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 style="text-align:center;">My Open Orders</h2>
+                    <table id="orderBookOpen" class="table table-striped table-condensed table-4px"
+                        style="text-align:right">
+                        <tr>
+                            <th>Price</th>
+                            <th>Quote</th>
+                            <th>Base</th>
+                            <th>Time</th>
+                            <th>ID</th>
+                            <th></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block script %}
+<script src="https://raw.githack.com/mahdiyari/steem-js/master/dist/steem.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<script>
+    //var user="felixxx"
+    var node = document.getElementById('node').value;
+    //var node = 'https://hive.3speak.online';
+    steem.api.setOptions({ useAppbaseApi: true, url: node });
+
+    function getOrderBook() {
+        //var limit = parseFloat(document.getElementById('limitDisplay').value);
+        var limit = 10;
+        steem.api.getOrderBook(limit, function (err, result) {
+            var totalask = 0;
+            var totalbid = 0;
+            result.asks.forEach((ask, i) => {
+                var askDisplay = document.createElement('tr');
+                askDisplay.classList.add('activeOrder', 'td-padding-4');
+
+                var hbdTD = document.createElement('td');
+                var hbd = ask.order_price.quote;
+                var shortHBD = hbd.substr(0, hbd.length - 4);
+                hbdTD.textContent = parseFloat(shortHBD).toFixed(3);
+                var baseTD = document.createElement('td');
+                var HIVE = ask.order_price.base;
+                var shortHIVE = HIVE.substr(0, HIVE.length - 5);
+                baseTD.textContent = parseFloat(shortHIVE).toFixed(3);
+                var priceTD = document.createElement('td');
+                var realPrice = ask.real_price;
+                var shortPrice = realPrice.substr(0, realPrice.length - 11);
+                priceTD.textContent = shortPrice;
+                var sumTD = document.createElement('td');
+                totalask = totalask + parseFloat(shortHBD);
+                totalask = parseFloat(totalask);
+                sumTD.textContent = (totalask.toFixed(3));
+                priceTD.style.color = '#871818';
+                askDisplay.append(priceTD);
+                askDisplay.append(baseTD);
+                askDisplay.append(hbdTD);
+                askDisplay.append(sumTD);
+                askDisplay.onclick = function () { dropPrice(shortPrice) };
+                if (i == 0) {
+                    var highestBidDisplay = document.getElementById('highestBid');
+                    highestBidDisplay.textContent = ('Best: ' + shortPrice);
+                    highestBidDisplay.onclick = function () { dropPrice(shortPrice) };
+                }
+                orderBookAsks.append(askDisplay);
+            })
+            result.bids.forEach((bid, i) => {
+                var bidDisplay = document.createElement('tr');
+                bidDisplay.setAttribute('class', 'activeOrder');
+                var hbdTD = document.createElement('td');
+                var hbd = bid.order_price.base;
+                var shortHBD = hbd.substr(0, hbd.length - 4);
+                hbdTD.textContent = parseFloat(shortHBD).toFixed(3);
+                var baseTD = document.createElement('td');
+                var HIVE = bid.order_price.quote;
+                var shortHIVE = HIVE.substr(0, HIVE.length - 5);
+                baseTD.textContent = parseFloat(shortHIVE).toFixed(3);
+                var priceTD = document.createElement('td');
+                var realPrice = bid.real_price;
+                var shortPrice = realPrice.substr(0, realPrice.length - 11);
+                priceTD.textContent = shortPrice;
+                var sumTD = document.createElement('td');
+                totalbid = totalbid + parseFloat(shortHBD);
+                totalbid = parseFloat(totalbid);
+                sumTD.textContent = (totalbid).toFixed(3);
+
+                priceTD.style.color = '#1e8a2e';
+
+                bidDisplay.append(sumTD);
+                bidDisplay.append(hbdTD);
+                bidDisplay.append(baseTD);
+                bidDisplay.append(priceTD);
+
+                bidDisplay.onclick = function () { dropPrice(shortPrice) };
+
+                if (i == 0) {
+                    var lowestAskDisplay = document.getElementById('lowestAsk');
+                    lowestAskDisplay.textContent = ('Best: ' + shortPrice);
+                    lowestAskDisplay.onclick = function () { dropPrice(shortPrice) };
+                }
+                orderBookBids.append(bidDisplay);
+            })
+        })
+    };
+    function userCheck() {
+        var user = document.getElementById('user').value
+        steem.api.getAccounts([user], function (err, result) {
+            var availableHBDdisplay = document.getElementById('availableHBD');
+            availableHBDdisplay.textContent = ('Available: ' + (result[0].sbd_balance));
+            var availableHIVEdisplay = document.getElementById('availableHIVE');
+            availableHIVEdisplay.textContent = ('Available: ' + (result[0].balance));
+        })
+    };
+    function dropPrice(price) {
+        var buyPriceDisplay = document.getElementById('buyPrice');
+        buyPriceDisplay.value = price;
+        var sellPriceDisplay = document.getElementById('sellPrice');
+        sellPriceDisplay.value = price;
+        changedBuyPrice();
+    };
+    function changedBuyPrice() {
+        var buyPriceDisplay = document.getElementById('buyPrice');
+        var price = buyPriceDisplay.value;
+        var buyAmountDisplay = document.getElementById('buyAmount');
+        var amount = buyAmountDisplay.value;
+        var buyTotalDisplay = document.getElementById('buyTotal');
+        var total = parseFloat(amount) * parseFloat(price);
+        total = total.toFixed(3);
+        if (isNaN(total) != true) {
+            buyTotalDisplay.value = total;
+        }
+    };
+    function changedBuyTotal() {
+        var buyPriceDisplay = document.getElementById('buyPrice');
+        var price = buyPriceDisplay.value;
+        var buyTotalDisplay = document.getElementById('buyTotal');
+        var total = buyTotalDisplay.value;
+        var buyAmountDisplay = document.getElementById('buyAmount');
+        var amount = parseFloat(total) / parseFloat(price);
+        amount = amount.toFixed(3);
+        if (isNaN(amount) != true) {
+            buyAmountDisplay.value = amount;
+        };
+    };
+    function changedSellPrice() {
+        var sellPriceDisplay = document.getElementById('sellPrice');
+        var price = sellPriceDisplay.value;
+        var sellAmountDisplay = document.getElementById('sellAmount');
+        var amount = sellAmountDisplay.value;
+        var sellTotalDisplay = document.getElementById('sellTotal');
+        var total = parseFloat(amount) * parseFloat(price);
+        total = total.toFixed(3);
+        if (isNaN(total) != true) {
+            sellTotalDisplay.value = total;
+        }
+    };
+    function changedSellTotal() {
+        var price = document.getElementById('sellPrice').value;
+        var total = document.getElementById('sellTotal').value;
+        var amount = parseFloat(total) / parseFloat(price);
+        amount = amount.toFixed(3);
+        if (isNaN(amount) != true) {
+            document.getElementById('sellAmount').value = amount;
+        };
+    }
+    function buy() {
+        var orderId = parseFloat(document.getElementById('orderId').value);
+        var user = document.getElementById('user').value;
+        var total = parseFloat(document.getElementById('buyTotal').value);
+        var amount = parseFloat(document.getElementById('buyAmount').value);
+        var price = (total / amount).toFixed(6);
+        total = total.toFixed(3) + ' HBD';
+        amount = amount.toFixed(3) + ' HIVE';
+        var wif = prompt('Sell ' + amount + ' for a total of ' + total + '?\n(' + price + ' HBD/HIVE)\nConfirm with private active key (wif):');
+        if (wif) {
+            steem.broadcast.limitOrderCreate(wif, user, orderId, total, amount, false, "2020-04-04T00:00:00", function (err, result) {
+                console.log(err, result);
+            })
+        }
+    }
+    function sell() {
+        var orderId = parseFloat(document.getElementById('orderId').value);
+        var user = document.getElementById('user').value;
+        var total = parseFloat(document.getElementById('sellTotal').value);
+        var amount = parseFloat(document.getElementById('sellAmount').value);
+        var price = (total / amount).toFixed(6);
+        total = total.toFixed(3) + ' HBD';
+        amount = amount.toFixed(3) + ' HIVE';
+        var wif = prompt('Sell ' + amount + ' for a total of ' + total + '?\n(' + price + ' HBD/HIVE)\nConfirm with private active key (wif):');
+        if (wif) {
+            steem.broadcast.limitOrderCreate(wif, user, orderId, amount, total, false, "2020-04-04T00:00:00", function (err, result) {
+                console.log(err, result);
+            })
+        }
+    }
+    function getUserOrders() {
+        var orderId = parseFloat(document.getElementById('orderId').value);
+        var orderId = 0;
+        var user = document.getElementById('user').value;
+        steem.api.getOpenOrders(user, function (err, result) {
+            result.forEach(order => {
+                var activeOrder = document.createElement('tr');
+                activeOrder.setAttribute('class', 'activeOrder');
+                document.getElementById('orderBookOpen').append(activeOrder);
+                var priceTD = document.createElement('td');
+                var baseTD = document.createElement('td');
+                var quoteTD = document.createElement('td');
+                var expirationTD = document.createElement('td');
+                var idTD = document.createElement('td');
+                var cancelTD = document.createElement('td');
+                cancelTD.style.padding = '1px';
+                cancelTD.style.paddingRight = '4px';
+                var cancelButton = document.createElement('button');
+                cancelButton.style.padding = '0px';
+                cancelButton.type = 'button';
+                cancelButton.classList.add('btn', 'btn-xs');
+                cancelButton.onclick = function () { cancelOrder(order) };
+                var cancelI = document.createElement('i');
+                cancelI.classList.add('fa', 'fa-trash');
+                cancelButton.append(cancelI);
+                cancelTD.append(cancelButton);
+                base = order.sell_price.base;
+                quote = order.sell_price.quote;
+                if (quote.includes('HIVE')) {
+                    activeOrder.style.color = '#1e8a2e';
+                    priceTD.textContent = (parseFloat(base.substr(0, base.length - 4)) / parseFloat(quote.substr(0, quote.length - 5))).toFixed(6);
+                } else {
+                    priceTD.textContent = (parseFloat(quote.substr(0, quote.length - 4)) / parseFloat(base.substr(0, base.length - 5))).toFixed(6);
+                    activeOrder.style.color = '#871818';
+                }
+                idTD.textContent = order.orderid;
+                baseTD.textContent = base;
+                quoteTD.textContent = quote;
+                expirationTD.textContent = order.expiration;
+                activeOrder.append(priceTD, baseTD, quoteTD, expirationTD, idTD, cancelTD);
+                if (parseFloat(order.orderid) >= parseFloat(orderId)) {
+                    orderId = order.orderid + 1;
+                    document.getElementById('orderId').value = orderId;
+                };
+            })
+        });
+    };
+    function getTicker() {
+        var node = document.getElementById('node').value;
+        fetch(node, { method: "POST", body: JSON.stringify({ "id": 1, "jsonrpc": "2.0", "method": "call", "params": ["market_history_api", "get_ticker", []] }) }).then(res => {
+            return res.json()
+        }).then(json => {
+            document.getElementById('tickerLatest').textContent = parseFloat(json.result.latest).toFixed(3);
+            document.getElementById('tickerChange').textContent = parseFloat(json.result.percent_change).toFixed(2) + ' %';
+            document.getElementById('tickerHighestBid').textContent = parseFloat(json.result.highest_bid).toFixed(6);
+            document.getElementById('tickerLowestAsk').textContent = parseFloat(json.result.lowest_ask).toFixed(6);
+            var totalHIVE = json.result.steem_volume;
+            var totalHBD = json.result.sbd_volume;
+            totalHIVE = totalHIVE.substr(0, totalHIVE.length - 5)
+            totalHBD = totalHBD.substr(0, totalHBD.length - 4)
+            document.getElementById('tickerTotalHIVE').textContent = totalHIVE;
+            document.getElementById('tickerTotalHBD').textContent = totalHBD;
+        })
+    };
+    function emptyOrders() {
+        var orders = document.getElementsByClassName('activeOrder');
+        while (orders[0]) {
+            orders[0].parentNode.removeChild(orders[0]);
+        }
+    }
+    function getRecentTrades() {
+        var node = document.getElementById('node').value;
+        fetch(node, { method: "POST", body: JSON.stringify({ "id": 1, "jsonrpc": "2.0", "method": "call", "params": ["market_history_api", "get_recent_trades", [10]] }) }).then(res => {
+            return res.json()
+        }).then(json => {
+            json.result.forEach(order => {
+                var activeOrder = document.createElement('tr');
+                activeOrder.setAttribute('class', 'activeOrder');
+                var priceTD = document.createElement('td');
+                var baseTD = document.createElement('td');
+                var quoteTD = document.createElement('td');
+                var expirationTD = document.createElement('td');
+                base = order.current_pays;
+                quote = order.open_pays;
+                if (quote.includes('HIVE')) {
+                    activeOrder.style.color = '#1e8a2e';
+                    priceTD.textContent = (parseFloat(base.substr(0, base.length - 4)) / parseFloat(quote.substr(0, quote.length - 5))).toFixed(6);
+                } else {
+                    activeOrder.style.color = '#871818';
+                    priceTD.textContent = (parseFloat(quote.substr(0, quote.length - 4)) / parseFloat(base.substr(0, base.length - 5))).toFixed(6);
+                }
+                document.getElementById('recentTrades').append(activeOrder);
+                baseTD.textContent = base;
+                quoteTD.textContent = quote;
+                expirationTD.textContent = order.date;
+                activeOrder.append(priceTD, baseTD, quoteTD, expirationTD);
+            })
+        })
+    }
+    function cancelOrder(order) {
+        console.log(order);
+        var user = document.getElementById('user').value;
+        var wif = prompt('Cancel Order ID: ' + order.orderid + ' ?\n(' + order.sell_price.base + ' for ' + order.sell_price.quote + ')');
+        if (wif) {
+            steem.broadcast.limitOrderCancel(wif, user, order.orderid, function (err, result) {
+                console.log(err, result);
+            })
+        }
+    }
+
+    function coinGecko(currency) {
+        hiveAssets = ['hive', 'hive_dollar'];
+        hiveAssets.forEach(hiveAsset => {
+            fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + hiveAsset + '&vs_currencies=' + currency + '&type=json').then(data => {
+                return data.json()
+            }).then(result => {
+                if (hiveAsset == 'hive') {
+                    document.getElementById('geckoHive').textContent = result.hive.usd + ' $';
+                } else {
+                    document.getElementById('geckoHBD').textContent = result.hive_dollar.usd + ' $';
+                }
+            })
+        })
+    };
+    getRecentTrades();
+    getOrderBook();
+
+    function refresh() {
+        userCheck();
+        emptyOrders();
+        //getTicker();	
+        getRecentTrades();
+        getOrderBook();
+        getUserOrders();
+        //coinGecko('usd');
+    }
+</script>
+{% endblock %}
+{% endblock %}

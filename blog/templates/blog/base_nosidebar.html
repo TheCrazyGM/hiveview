@@ -35,33 +35,23 @@
                 </ul>
             </div>
         </div>
-
         <div class="row page-content">
 
-            <div class="col-md-8">
+            <div class="col">
                 {% block content %}
                 {% endblock %}
             </div>
-            <div class="col-md-4">
-                <h1>Widgets</h1>
-                <div class="post">
-                    {% url 'account' as account %}
-                    <form action="{{ account }}" method="GET">
-                        {% csrf_token %}
-                        <input type="text" value="thecrazygm" name="author" size="20" />
-                        <input class="btn btn-primary" type="submit" value="Query user" name="req_author">
-                    </form>
-                </div>
-            </div>
         </div>
-        <div class="row align-items-end page-footer">
-            <div class="col">
-                <a href="https://hive.io"><img src="{% static "img/powered-by-hive.png" %}" alt="powered-by-hive"
-                        width="240px"></a>
-                {% now "Y" as current_year %}
-                <p><span class="copyleft">&copy;</span> Copyleft {{ current_year }}</p>
-            </div>
+
+    </div>
+    <div class="row align-items-end page-footer">
+        <div class="col">
+            <a href="https://hive.io"><img src="{% static "img/powered-by-hive.png" %}" alt="powered-by-hive"
+                    width="240px"></a>
+            {% now "Y" as current_year %}
+            <p><span class="copyleft">&copy;</span> Copyleft {{ current_year }}</p>
         </div>
+    </div>
     </div>
 </body>
 
