@@ -14,6 +14,7 @@ steem = "*"
 html-sanitizer = "*"
 bhive = "*"
 pymdown-extensions = "*"
+markupsafe = "*"
 
 [requires]
 python_version = "3.7"

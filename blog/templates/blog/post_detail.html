@@ -12,7 +12,7 @@
             class="glyphicon glyphicon-pencil"></span></a>
     {% endif %}
     <h1>{{ post.title }}</h1>
-    {{ post.body|safe }}
+    {{ post.body }}
     <div class="tags">
         <h3>Tags:</h3>
         {% for tags in post.tags %}
@@ -23,7 +23,7 @@
     <hr /> 
     {% for reply in replies %}
     <div class="date"><a href="/@{{ reply.author }}/">{{reply.author}}</a> - {{reply.created}}</div>
-    {{reply.body|safe}}
+    {{reply.body}}
     <hr />
     {% endfor %}
 </div>

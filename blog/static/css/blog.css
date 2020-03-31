@@ -87,9 +87,9 @@ hr {
 }
 
 .date, .date a {
-    color: grey;
+    color: darkslategrey;
     font-size: smaller;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .top-menu, .top-menu:hover, .top-menu:visited {
