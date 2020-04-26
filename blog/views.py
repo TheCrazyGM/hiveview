@@ -17,9 +17,9 @@ from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from markupsafe import Markup
 
-#nodes = ["https://api.hive.blog", "https://anyx.io"]
-q = Query(limit=10)
-hv = Hive()  # node=nodes)
+nodes = ["https://hived.privex.io", "https://anyx.io", "https://api.hive.blog",]
+q = Query(limit=100)
+hv = Hive(node=nodes)
 set_shared_blockchain_instance(hv)
 image_proxy = "https://images.hive.blog/640x0/"
 
@@ -73,7 +73,7 @@ def tag(request, tag):
 def blog_posts(request, author):
     author = re.sub(r'(\/)', '', author)
     account = Account(author)
-    posts = account.get_blog(limit=10)
+    posts = account.get_blog(limit=20)
     for post in posts:
         if post:
             post = strip(post)

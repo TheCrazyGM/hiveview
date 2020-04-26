@@ -12,7 +12,8 @@
             class="glyphicon glyphicon-pencil"></span></a>
     {% endif %}
     <h1>{{ post.title }}</h1>
-    {{ post.body }}
+    {{ post.body| safe | linebreaksbr }}
+    </b></i></strong></center>
     <div class="tags">
         <h3>Tags:</h3>
         {% for tags in post.tags %}

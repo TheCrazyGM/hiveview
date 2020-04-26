@@ -1,19 +1,27 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 {% with request.resolver_match.view_name as view_name %}
-    <h1>{{ view_name|capfirst }}</h1>
+<h1>{{ view_name|capfirst }}</h1>
 {% endwith %}
-{% for post in posts %}
-
 <div class="post">
-    <div class="date">
-        <a href="/@{{ post.author }}/">{{post.author}}</a> {{ post.created }} - {{post.pending_payout_value }} - {{post.active_votes|length }} Votes
-    </div>
-    <h1>
-        <a href="{% url 'post_detail' permlink=post.permlink author=post.author %}">{{ post.title }}</a>
-    </h1>
-    {{ post.body| safe|truncatewords_html:50 |linebreaksbr }}
+    <table width="100%">
+        <tr>
+            <th>Post</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Value</th>
+            <th>Votes</th>
+        </tr>
+        {% for post in posts %}
+        <tr>
+            <td> <a href="{% url 'post_detail' permlink=post.permlink author=post.author %}">{{ post.title|truncatechars:80 }}</a> </td>
+            <td> <a href="/@{{ post.author }}/">{{post.author}}</a> </td>
+            <td> {{ post.created| date:"Y-m-d H:i" }} </td>
+            <td align="right"> {{post.pending_payout_value }} </td>
+            <td align="right"> {{post.active_votes|length }} Votes </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
-{% endfor %}
 
 {% endblock %}
