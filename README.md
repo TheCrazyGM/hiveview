@@ -4,13 +4,13 @@ The idea is to have a django app for the routes and necesary stuff to include in
 
 Used the simple blog app from [Django Girls](https://tutorial.djangogirls.org/)) as a base django template.
 
-Used an unholy mix of steem and beem (as some stuff is just broken in beem at the moment)
-
+All beem native now
 # Done
 
-@username routes including @username/post (but not replies, followers, followees)
+@username routes including @username/post 
 all /tag/@username/post
 /trending, /hot, /created, 
+/@username/following /@username/followers
 
 detailed view is mostly complete, including replies
 detailed view shows number of votes and current payout value
