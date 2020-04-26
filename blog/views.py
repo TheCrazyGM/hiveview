@@ -17,13 +17,14 @@ from markupsafe import Markup
 q = Query(limit=10)
 hv = Hive()  # node=nodes)
 set_shared_blockchain_instance(hv)
-image_proxy = "https://images.hive.blog/480x0/"
+image_proxy = "https://images.hive.blog/640x0/"
 
 
 def strip(text):
+    text['body'] = re.sub(r"(^https?:[^)''\"]+\.(?:jpg|jpeg|gif|png))", rf'![](\1) >', text['body'])
     text['body'] = markdown.markdown(text['body'], extensions=[
                                      'nl2br', 'codehilite', 'pymdownx.extra', 'pymdownx.magiclink', 'pymdownx.betterem', 'pymdownx.inlinehilite'])
-    text['body'] = re.sub("(<h1>|<h2>)", "<h3>", text['body'])
+    #text['body'] = re.sub("(<h1>|<h2>)", "<h3>", text['body'])
     text['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
                           rf'<img src={image_proxy}\1 >', text['body'])
     text['body'] = Markup(text['body'])
