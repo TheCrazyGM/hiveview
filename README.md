@@ -7,11 +7,11 @@ Used the simple blog app from [Django Girls](https://tutorial.djangogirls.org/))
 All beem native now
 # Done
 
-* @username routes including @username/post 
+* @username routes including @username/post
 * all /tag/@username/post
 * /trending
 * /hot
-* /created 
+* /created
 * /@username/following
 * /@username/followers
 
