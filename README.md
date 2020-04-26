@@ -4,7 +4,7 @@ The idea is to have a django app for the routes and necesary stuff to include in
 
 Used the simple blog app from [Django Girls](https://tutorial.djangogirls.org/)) as a base django template.
 
-Used an unholy mix of steem and bhive (as some stuff is just broken in bhive at the moment)
+Used an unholy mix of steem and beem (as some stuff is just broken in beem at the moment)
 
 # Done
 

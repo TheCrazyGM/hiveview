@@ -5,20 +5,18 @@ import requests
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from bhive import Hive
-from bhive.account import Account
-from bhive.comment import Comment
-from bhive.discussions import Query
-from bhive.instance import set_shared_hive_instance
-from bhive.utils import construct_authorperm
-from hive import Hive as Hivepy
+from beem import Hive
+from beem.account import Account
+from beem.comment import Comment
+from beem.discussions import Query, Discussions_by_trending, Discussions_by_hot, Discussions_by_created, Discussions_by_blog
+from beem.instance import set_shared_blockchain_instance
+from beem.utils import construct_authorperm
 from markupsafe import Markup
 
 #nodes = ["https://api.hive.blog", "https://anyx.io"]
 q = Query(limit=10)
-hvpy = Hivepy()  # nodes=nodes)
 hv = Hive()  # node=nodes)
-set_shared_hive_instance(hv)
+set_shared_blockchain_instance(hv)
 image_proxy = "https://images.hive.blog/480x0/"
 
 
@@ -33,7 +31,7 @@ def strip(text):
 
 
 def trending(request):
-    posts = hvpy.get_discussions_by_trending(q)
+    posts = Discussions_by_trending(q)
     for post in posts:
         if post:
             post = strip(post)
@@ -41,7 +39,7 @@ def trending(request):
 
 
 def hot(request):
-    posts = hvpy.get_discussions_by_hot(q)
+    posts = Discussions_by_hot(q)
     for post in posts:
         if post:
             post = strip(post)
@@ -49,7 +47,7 @@ def hot(request):
 
 
 def latest(request):
-    posts = hvpy.get_discussions_by_created(q)
+    posts = Discussions_by_created(q)
     for post in posts:
         if post:
             post = strip(post)
@@ -58,7 +56,7 @@ def latest(request):
 
 def tag(request, tag):
     tag_q = Query(limit=10, tag=tag)
-    posts = hvpy.get_discussions_by_trending(tag_q)
+    posts = Discussions_by_trending(tag_q)
     for post in posts:
         if post:
             post = strip(post)
@@ -67,7 +65,7 @@ def tag(request, tag):
 
 def blog_posts(request, author):
     author = re.sub(r'(\/)', '', author)
-    account = Account(author, hive_instance=hv)
+    account = Account(author)
     posts = account.get_blog()
     for post in posts:
         if post:
@@ -77,9 +75,9 @@ def blog_posts(request, author):
 
 def post_detail(request, author, permlink, **args):
     author_perm = construct_authorperm(author, permlink)
-    post = Comment(author_perm, hive_instance=hv)
+    post = Comment(author_perm)
     if post:
-        replies = hvpy.get_content_replies(author, permlink)
+        replies = post.get_all_replies()
         post = strip(post)
         for reply in replies:
             reply = strip(reply)
@@ -87,13 +85,13 @@ def post_detail(request, author, permlink, **args):
 
 
 def followers(request, author):
-    account = Account(author, hive_instance=hv)
+    account = Account(author)
     followers = account.get_followers(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
 
 def following(request, author):
-    account = Account(author, hive_instance=hv)
+    account = Account(author)
     followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 

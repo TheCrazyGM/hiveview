@@ -10,11 +10,10 @@ autopep8 = "*"
 django = "*"
 markdown = "*"
 requests = "*"
-steem = "*"
 html-sanitizer = "*"
-bhive = "*"
 pymdown-extensions = "*"
 markupsafe = "*"
+beem = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
