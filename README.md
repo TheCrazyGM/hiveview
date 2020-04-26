@@ -7,10 +7,13 @@ Used the simple blog app from [Django Girls](https://tutorial.djangogirls.org/))
 All beem native now
 # Done
 
-@username routes including @username/post 
-all /tag/@username/post
-/trending, /hot, /created, 
-/@username/following /@username/followers
+* @username routes including @username/post 
+* all /tag/@username/post
+* /trending
+* /hot
+* /created 
+* /@username/following
+* /@username/followers
 
 detailed view is mostly complete, including replies
 detailed view shows number of votes and current payout value
