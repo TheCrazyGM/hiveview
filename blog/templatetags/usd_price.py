@@ -1,3 +1,4 @@
+from beem import Steem
 from beem import Hive
 from beem.instance import shared_blockchain_instance
 from beem.market import Market

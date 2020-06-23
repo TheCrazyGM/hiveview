@@ -14,23 +14,34 @@ from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.shortcuts import redirect, render
 from django.utils import timezone
-from django.views.decorators.cache import cache_page
+
+from beem import Hive
+from beem.nodelist import NodeList
+from beem.account import Account
+from beem.comment import Comment
+from beem.discussions import Query
+from beem.discussions import Discussions
+from beem.instance import set_shared_blockchain_instance
+from beem.utils import construct_authorperm
 from markupsafe import Markup
 
-nodes = ["https://hived.privex.io", "https://anyx.io", "https://api.hive.blog",]
-q = Query(limit=100)
-hv = Hive(node=nodes)
-set_shared_blockchain_instance(hv)
-image_proxy = "https://images.hive.blog/640x0/"
+nodelist = NodeList()
+nodelist.update_nodes()
+#nodes = ["https://api.hive.blog", "https://anyx.io"]
+q = Query(limit=10)
 
-CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+hv = Hive(node=nodelist.get_hive_nodes())
+set_shared_blockchain_instance(hv)
+d = Discussions(blockchain_instance=hv)
+image_proxy = "https://images.hive.blog/480x0/"
 
 
 def strip(text):
     text['body'] = re.sub(r"(^https?:[^)''\"]+\.(?:jpg|jpeg|gif|png))", rf'![](\1) >', text['body'])
     text['body'] = markdown.markdown(text['body'], extensions=[
-                                     'nl2br', 'codehilite', 'pymdownx.extra', 'pymdownx.magiclink', 'pymdownx.betterem', 'pymdownx.inlinehilite'])
-    #text['body'] = re.sub("(<h1>|<h2>)", "<h3>", text['body'])
+                                     'nl2br', 'codehilite', 'pymdownx.extra', 'pymdownx.magiclink', 'pymdownx.betterem', 'pymdownx.inlinehilite', 'pymdownx.snippets',
+                                     'pymdownx.striphtml'])
+    text['body'] = re.sub("(<h1>|<h2>)", "<h3>", text['body'])
     text['body'] = re.sub(r"<img\b(?=\s)(?=(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\s>]*)*?\ssrc=['\"]([^\"]*)['\"]?)(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"\s]*)*\"\s?\/?>",
                           rf'<img src={image_proxy}\1 >', text['body'])
     text['body'] = Markup(text['body'])
@@ -38,42 +49,46 @@ def strip(text):
 
 @cache_page(CACHE_TTL)
 def trending(request):
-    posts = Discussions_by_trending(q)
-    for post in posts:
+    posts = []
+    for post in d.get_discussions("trending", q, limit=10, raw_data=True):
         if post:
             post = strip(post)
+            posts.append(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 @cache_page(CACHE_TTL)
 def hot(request):
-    posts = Discussions_by_hot(q)
-    for post in posts:
+    posts = []
+    for post in d.get_discussions("hot", q, limit=10, raw_data=True):
         if post:
             post = strip(post)
+            posts.append(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 @cache_page(CACHE_TTL)
 def latest(request):
-    posts = Discussions_by_created(q)
-    for post in posts:
+    posts = []
+    for post in d.get_discussions("created", q, limit=10, raw_data=True):
         if post:
             post = strip(post)
+            posts.append(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 @cache_page(CACHE_TTL)
 def tag(request, tag):
     tag_q = Query(limit=10, tag=tag)
-    posts = Discussions_by_trending(tag_q)
-    for post in posts:
+    posts = []
+    for post in d.get_discussions("trending", tag_q, limit=10, raw_data=True):
         if post:
             post = strip(post)
+            posts.append(post)
     return render(request, 'blog/post_list.html', {"posts": posts})
 
 @cache_page(CACHE_TTL)
 def blog_posts(request, author):
     author = re.sub(r'(\/)', '', author)
-    account = Account(author)
-    posts = account.get_blog(limit=20)
+    account = Account(author, blockchain_instance=hv)
+    posts = account.get_blog()
     for post in posts:
         if post:
             post = strip(post)
@@ -82,9 +97,9 @@ def blog_posts(request, author):
 @cache_page(CACHE_TTL)
 def post_detail(request, author, permlink, **args):
     author_perm = construct_authorperm(author, permlink)
-    post = Comment(author_perm)
+    post = Comment(author_perm, blockchain_instance=hv)
     if post:
-        replies = post.get_all_replies()
+        replies = post.get_replies(raw_data=True)
         post = strip(post)
         for reply in replies:
             reply = strip(reply)
@@ -92,13 +107,13 @@ def post_detail(request, author, permlink, **args):
 
 @cache_page(CACHE_TTL)
 def followers(request, author):
-    account = Account(author)
+    account = Account(author, blockchain_instance=hv)
     followers = account.get_followers(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
 @cache_page(CACHE_TTL)
 def following(request, author):
-    account = Account(author)
+    account = Account(author, blockchain_instance=hv)
     followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
@@ -134,7 +149,7 @@ def post_new(request):
 def post_edit(request, author, permlink):
     """
         author_perm = construct_authorperm(author, permlink)
-        post = Comment(author_perm, steem_instance=steem)
+        post = Comment(author_perm, blockchain_instance=steem)
         if request.method == "POST":
             form = PostForm(request.POST, instance=post)
             if form.is_valid():
