@@ -2,7 +2,17 @@ import re
 
 import markdown
 import requests
-from django.shortcuts import get_object_or_404, redirect, render
+from beem import Hive
+from beem.account import Account
+from beem.comment import Comment
+from beem.discussions import (Discussions_by_blog, Discussions_by_created,
+                              Discussions_by_hot, Discussions_by_trending,
+                              Query)
+from beem.instance import set_shared_blockchain_instance
+from beem.utils import construct_authorperm
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.shortcuts import redirect, render
 from django.utils import timezone
 
 from beem import Hive
@@ -27,6 +37,7 @@ image_proxy = "https://images.hive.blog/480x0/"
 
 
 def strip(text):
+    text['body'] = re.sub(r"(^https?:[^)''\"]+\.(?:jpg|jpeg|gif|png))", rf'![](\1) >', text['body'])
     text['body'] = markdown.markdown(text['body'], extensions=[
                                      'nl2br', 'codehilite', 'pymdownx.extra', 'pymdownx.magiclink', 'pymdownx.betterem', 'pymdownx.inlinehilite', 'pymdownx.snippets',
                                      'pymdownx.striphtml'])
@@ -36,7 +47,7 @@ def strip(text):
     text['body'] = Markup(text['body'])
     return text
 
-
+@cache_page(CACHE_TTL)
 def trending(request):
     posts = []
     for post in d.get_discussions("trending", q, limit=10, raw_data=True):
@@ -45,7 +56,7 @@ def trending(request):
             posts.append(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-
+@cache_page(CACHE_TTL)
 def hot(request):
     posts = []
     for post in d.get_discussions("hot", q, limit=10, raw_data=True):
@@ -54,7 +65,7 @@ def hot(request):
             posts.append(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-
+@cache_page(CACHE_TTL)
 def latest(request):
     posts = []
     for post in d.get_discussions("created", q, limit=10, raw_data=True):
@@ -63,7 +74,7 @@ def latest(request):
             posts.append(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-
+@cache_page(CACHE_TTL)
 def tag(request, tag):
     tag_q = Query(limit=10, tag=tag)
     posts = []
@@ -73,7 +84,7 @@ def tag(request, tag):
             posts.append(post)
     return render(request, 'blog/post_list.html', {"posts": posts})
 
-
+@cache_page(CACHE_TTL)
 def blog_posts(request, author):
     author = re.sub(r'(\/)', '', author)
     account = Account(author, blockchain_instance=hv)
@@ -83,7 +94,7 @@ def blog_posts(request, author):
             post = strip(post)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-
+@cache_page(CACHE_TTL)
 def post_detail(request, author, permlink, **args):
     author_perm = construct_authorperm(author, permlink)
     post = Comment(author_perm, blockchain_instance=hv)
@@ -94,19 +105,19 @@ def post_detail(request, author, permlink, **args):
             reply = strip(reply)
     return render(request, 'blog/post_detail.html', {'post': post, 'replies': replies})
 
-
+@cache_page(CACHE_TTL)
 def followers(request, author):
     account = Account(author, blockchain_instance=hv)
     followers = account.get_followers(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
-
+@cache_page(CACHE_TTL)
 def following(request, author):
     account = Account(author, blockchain_instance=hv)
     followers = account.get_following(raw_name_list=True, limit=100)
     return render(request, 'blog/follower.html', {'followers': followers})
 
-
+@cache_page(CACHE_TTL)
 def request_author(request, *args, **kwargs):
     if(request.GET.get('req_author')):
         author = str(request.GET.get('author'))

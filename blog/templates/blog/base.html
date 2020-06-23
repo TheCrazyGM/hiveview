@@ -52,6 +52,22 @@
                         <input class="btn btn-primary" type="submit" value="Query user" name="req_author">
                     </form>
                 </div>
+                <h1>Current Price</h1>
+                <div class="post">
+                    <table width="100%">
+                        {% get_ticker as ticker %}
+                        <tr>
+                            <td>Price USD</td>
+                            <td align="right">${% usd_price %}</td>
+                        </tr>
+                        {% for key, value in ticker.ticker.items %}
+                        <tr>
+                            <td>{{key}}</td>
+                            <td align="right">{{value}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
         <div class="row align-items-end page-footer">
